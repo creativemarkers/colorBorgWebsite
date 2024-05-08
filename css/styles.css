@@ -275,7 +275,8 @@ main{
     padding:0.7rem;
     text-align: right;
     font-weight: 300;
-    background-color: rgba(250, 249, 239, 0.897);
+    background-color: rgba(255, 255, 250, 0.938);
+    /* background-color: rgba(250, 249, 239, 0.897); */
     font-size: 1em;
     height: auto;
 }
@@ -353,6 +354,7 @@ button:focus{
     text-align: left;
     font-weight: 300;
     background-color: rgba(250, 249, 239, 0.897);
+    background-color: rgba(255, 255, 250, 0.938);
     font-size: 1.10em;
 }
 
@@ -385,7 +387,7 @@ button:focus{
     padding:0.7rem;
     text-align: left;
     font-weight: 300;
-    background-color: rgba(250, 249, 239, 0.897);
+    background-color: rgba(255, 255, 250, 0.938);
     font-size: 1.10em;
 }
 
@@ -394,7 +396,7 @@ button:focus{
     padding:0.7rem;
     text-align: left;
     font-weight: 300;
-    background-color: rgba(250, 249, 239, 0.897);
+    background-color: rgba(255, 255, 250, 0.938);
     font-size: 1.10em;
 }
 
