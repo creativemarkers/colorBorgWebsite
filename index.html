@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ColorBorg</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script>
+        function scrollToSection(sectionId){
+            document.getElementById(sectionId).scrollIntoView({
+                behavior:"smooth"
+            })
+        }
+    </script>
 </head>
 <body>
     <header>
@@ -17,10 +24,9 @@
         </section>
         <nav>
             <ul>
-                <li><a href="products.html">Products</a></li>
-                <li><a href="#">Forum</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#">Download</a></li>
+                <li><a href="#">Login</a></li>
             </ul>
         </nav>
         <section class="title-decor">
@@ -38,15 +44,86 @@
                 <div class="landingspacer">
                 </div>
                 <div class="landingcontent">
-                    <div class="landingmainbox">
                         <div class="landingmainh1">
                             <h1>The Best </h1>
                             <h1>Colorbot</h1>
                         </div>
+                        <div class="underH1text">
+                            <p>in the game.</p>
+                        </div>
+                        <div id="intro" class="introparagraph">
+                            <!-- Colorborg was designed from the groundup, as a modular codebase with maintainability in mind. Written in python the program has allowed me to bring my full problem solving skills i have gained over the years in IT and programming. -->
+                            I started programming in January, and by May, I had created Colorborg—a modular codebase designed from scratch for maintainability. Built in Python, it demonstrates my rapid learning and problem-solving skills, informed by my background in IT. Colorborg isn't just a project; it's a proof of concept for scalable and efficient solutions, showing that even in a short time, you can build something robust.
+                        </div>
+                        <div class="heroButton" onclick="scrollToSection('about')">
+                            <button type="button">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="aboutContainer">
+                    <div class="aboutSpacer">
+                    </div>
+                    <div id="about" class="aboutcontent">
+                        <div class="aboutTitle">
+                            <h1> about.</h1>
+                        </div>
+                        <div class="aboutParagraph">
+                            <p>
+                                ColorBorg is an automation platform for Old School RuneScape. Instead of using injection to interact with the game, ColorBorg employs a mix of color detection, image recognition, optical character recognition, and a local API to navigate the game successfully. The platform is developed in Python with a focus on modularity and ban evasion. Throughout its development, I designed the bot to mimic human behavior, enhancing its natural appearance and reducing the risk of detection.
+                                <br>
+                                <br>
+                                The system's modularity plays a significant role in its flexibility; most functions are written to be universal, allowing them to be reused for other skills. This plug-and-play approach helps ensure that the bot is easily adaptable and expandable for additional in-game tasks.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="aboutContainer2">
+                    <div class="aboutSpacer2">
+                    </div>
+                    <div id="features" class="aboutcontent2">
+                        <div class="aboutTitle2">
+                            <h1> features.</h1>
+                        </div>
+                        <div class="aboutParagraph2">
+                            <p>
+                                Colorborg currently only supports a very limited amount of task since it's still underdevelopment.
+
+                                <ul>
+                                    <li><strong>Fishing:</strong> Supports shrimp and fly fishing</li>
+                                    <li>
+                                        <strong>Combat:</strong>
+                                        Slays Chickens to collect their feathers
+                                    </li>
+                                </ul>
+                                
+                                <ul>
+                                    <li>
+                                        <strong>Runelite Local API:</strong> Utilizes the RuneLite local API to optimize computational performance and achieve tasks otherwise impossible with a standard color bot.
+                                    </li>
+                                    <li>
+                                        <strong>GUI:</strong>
+                                        A clean, straightforward interface providing all necessary controls without unnecessary clutter.
+                                    </li>
+                                    <li>
+                                        <strong>Logging:</strong>
+                                        Comprehensive logging capabilities to facilitate efficient debugging and ongoing support.
+                                    </li>
+                                    <li>
+                                        <strong>Break System:</strong>
+                                         Allows the bot to take breaks automatically, enhancing its human-like behavior and reducing the risk of detection.
+                                    </li>
+                                    <li>
+                                        <strong>Ban Evasion:</strong>
+                                         Designed with ban evasion as a core focus, incorporating the latest techniques to minimize the risk of detection by anti-botting systems.
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </main>
 </body>
 </html>

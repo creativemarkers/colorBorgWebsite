@@ -3,7 +3,6 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     overflow-x: hidden;
 }
 
@@ -194,10 +193,11 @@ main{
 }
 
 .verticalTitle{
-    padding: 0.5rem;
+    padding-top: 0.5rem;
+    margin-left: -1rem;
     writing-mode: vertical-rl;
     font-size: 20rem;
-    line-height: 3rem;
+    line-height: 0;
     color: #1a29d6;
     color: #3e4dd4;
     overflow-x: visible;
@@ -208,13 +208,16 @@ main{
     display: flex;
     flex-flow:column nowrap;
     align-items: flex-start;
-    width:80vw;
+    /* width:80vw; */
+    max-width: 100%;
 }
 
 .horizontal{
     padding: 0.5rem;
-    padding-left: 6rem;
-    font-size: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 0rem;
+    padding-left: 2rem;
+    font-size: 2.5rem;
     color:var(--HEADER-TEXTCOLOR);
     font-style: italic;
     font-family: "Playfair Display", serif;
@@ -224,37 +227,445 @@ main{
 .landingDiv{
     display:flex;
     flex-flow: row nowrap;
-    width: 100%;
-    flex:1;
+    /* width: 100%; */
+    /* flex:1; */
     justify-content: flex-end;
+    overflow-x: visible;
 }
 
 .landingspacer{
     width: 15vw;
-    border: 1px solid black;
-
 }
+
 
 .landingcontent{
-    width: 80%;
-    border: 1px solid black;
+    width: 82.5%;
+    /* border: 1px solid black; */
     display: flex;
-}
-
-.landingmainbox{
-    padding: 0.5rem;
-    flex:1;
-    justify-content:flex-end;
-
+    flex-flow: column nowrap;
+    padding-top:2rem;
 }
 
 .landingmainh1{
-    padding-top: 5%;
-    padding-right:12%;
+    background-color: var(--HEADER-BGCOLOR);
+    padding-bottom: 0.2rem;
 }
 
-.landingmainbox h1{
+.landingcontent h1{
+    overflow-x: hidden;
+    overflow-y: hidden;
     font-family: "Playfair Display", serif;
     text-align: right;
-    font-size: 7em;
+    font-size: 4rem;
+    color: var(--HEADER-TEXTCOLOR);
+    line-height: 4.25rem;
+    white-space: nowrap;
+    padding-right: 0.7rem;
+}
+
+.underH1text{
+    margin: 0.1rem 0rem 0.1rem 0.1rem;
+    font-weight: 300;
+    text-align: right;
+    padding-right: 0.7rem;
+}
+
+.introparagraph{
+    margin-top: 0.75rem;
+    padding:0.7rem;
+    text-align: right;
+    font-weight: 300;
+    background-color: rgba(250, 249, 239, 0.897);
+    font-size: 1em;
+    height: auto;
+}
+
+.heroButton{
+    margin: 1.25rem;
+    margin-top: 1.15rem;
+    /* border: 1px solid blue; */
+    display: flex;
+    justify-content: flex-end;
+}
+
+.heroButton button{
+
+    border: none;
+    /* border: 1px solid var(--HEADER-TEXTCOLOR); */
+    margin: 0;
+    padding: 0;
+    width: auto;
+    overflow: visible;
+    height: 65px;
+    width: 125px;
+    margin-right: 2rem;
+    /* background-color: dodgerblue; */
+    background-color: #3e4dd4;
+    color: var(--HEADER-TEXTCOLOR);
+    font-weight: 500;
+    font-size: .8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background 250ms ease-in-out, transform 150ms ease;
+}
+
+.heroButton button:hover,
+button:focus{
+    background-color:#3845bb;
+    /* background-color:rgb(25, 119, 212); */
+}
+
+.heroButton button:focus {
+    outline: 1px solid #3e4dd4;
+    outline-offset: -4px;
+}
+
+.heroButton button:active{
+    transform: scale(0.99);
+}
+.aboutSpacer{
+    /* border: 1px solid #1a29d6; */
+    height: 80px;
+}
+.aboutContainer{
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.aboutTitle{
+    font-family: "Playfair Display";
+    color: var(--HEADER-TEXTCOLOR);
+    margin: 0.90rem;
+    background-color: black;
+
+}
+
+.aboutTitle h1{
+    padding: 0.25rem;
+    font-size: 3.25rem;
+    padding-left: 2rem;
+}
+
+.aboutParagraph p{
+    margin: 0 1rem 1rem 1rem;
+    padding:0.7rem;
+    text-align: left;
+    font-weight: 300;
+    background-color: rgba(250, 249, 239, 0.897);
+    font-size: 1.10em;
+}
+
+.aboutSpacer2{
+    /* border: 1px solid #1a29d6; */
+    height: 80px;
+}
+.aboutContainer2{
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.aboutTitle2{
+    font-family: "Playfair Display";
+    color: var(--HEADER-TEXTCOLOR);
+    margin: 0.90rem;
+    background-color: black;
+
+}
+
+.aboutTitle2 h1{
+    padding: 0.25rem;
+    font-size: 3.25rem;
+    padding-left: 2rem;
+}
+
+.aboutParagraph2 p{
+    margin: 0 1rem 1rem 1rem;
+    padding:0.7rem;
+    text-align: left;
+    font-weight: 300;
+    background-color: rgba(250, 249, 239, 0.897);
+    font-size: 1.10em;
+}
+
+.aboutParagraph2 ul{
+    margin: 0 1rem 1rem 1rem;
+    padding:0.7rem;
+    text-align: left;
+    font-weight: 300;
+    background-color: rgba(250, 249, 239, 0.897);
+    font-size: 1.10em;
+}
+
+@media screen and (min-width:300px){
+
+    .horizontal{
+        padding-top: 0.5rem;
+    }
+    
+    .landingcontent{
+        padding-top:1rem;
+    }
+
+    .landingmainh1 h1{
+        font-size: 3.9rem;
+    }
+    
+    .introparagraph{
+        margin-top: 0.50rem;
+    }
+    
+    .heroButton{
+        margin-top: 1rem;
+    }
+
+    .heroButton button{
+        height: 50px;
+        width: 125px;
+    }
+    
+}
+
+@media screen and (min-width:425px){
+
+    .horizontal{
+        padding-top: .75rem;
+        padding-left: 2rem;
+    }
+
+    .landingcontent{
+        padding-top:1.40rem;
+    }
+    
+    .landingmainh1{
+        padding-bottom: 0.2rem;
+    }
+    
+  
+    .introparagraph{
+        margin-top: 0.75rem;
+        padding:0.7rem;
+    }
+    
+    .heroButton{
+        margin: 1.25rem;
+        margin-top: 1rem;
+    }
+    
+    .heroButton button{
+        height: 50px;
+        width: 125px;
+        margin-right: 2rem;
+    }
+
+}
+
+@media screen and (min-width:576px){
+    .verticalTitle{
+        padding-top: 0.5rem;
+        margin-left: -1rem;
+        writing-mode: vertical-rl;
+        font-size: 20rem;
+        line-height: 0;
+        color: #1a29d6;
+        color: #3e4dd4;
+        overflow-x: visible;
+    }
+    
+    .rightMain{
+        flex-grow: 1;
+        display: flex;
+        flex-flow:column nowrap;
+        align-items: flex-start;
+        /* width:80vw; */
+        max-width: 100%;
+    }
+    
+    .horizontal{
+        padding: 0.5rem;
+        padding-top: 1rem;
+        padding-bottom: 0rem;
+        padding-left: 2rem;
+        font-size: 2.5rem;
+        color:var(--HEADER-TEXTCOLOR);
+        font-style: italic;
+        font-family: "Playfair Display", serif;
+        font-weight: 600;
+    }
+    
+    .landingDiv{
+        display:flex;
+        flex-flow: row nowrap;
+        /* width: 100%; */
+        /* flex:1; */
+        justify-content: flex-end;
+        overflow-x: visible;
+    }
+    
+    .landingspacer{
+        width: 15vw;
+    }
+    
+    
+    .landingcontent{
+        width: 82.5%;
+        /* border: 1px solid black; */
+        display: flex;
+        flex-flow: column nowrap;
+        padding-top:1.50rem;
+    }
+    
+    .landingmainh1{
+        background-color: var(--HEADER-BGCOLOR);
+        padding-bottom: 0.2rem;
+    }
+    
+    .landingcontent h1{
+        overflow-x: hidden;
+        overflow-y: hidden;
+        font-family: "Playfair Display", serif;
+        text-align: right;
+        font-size: 4rem;
+        color: var(--HEADER-TEXTCOLOR);
+        line-height: 4.25rem;
+        white-space: nowrap;
+        padding-right: 0.7rem;
+    }
+    
+    .underH1text{
+        margin: 0.1rem 0rem 0.1rem 0.1rem;
+        font-weight: 300;
+        text-align: right;
+        padding-right: 0.7rem;
+    }
+    
+    .introparagraph{
+        margin-top: 0.75rem;
+        padding:0.7rem;
+        text-align: right;
+        font-weight: 300;
+        background-color: rgba(250, 249, 239, 0.897);
+        font-size: 1em;
+        height: auto;
+    }
+    
+    .heroButton{
+        margin: 1.25rem;
+        margin-top: 1rem;
+        /* border: 1px solid blue; */
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    .heroButton button{
+    
+        border: none;
+        /* border: 1px solid var(--HEADER-TEXTCOLOR); */
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+        height: 50px;
+        width: 125px;
+        margin-right: 2rem;
+        background-color: dodgerblue;
+        color: var(--HEADER-TEXTCOLOR);
+        font-weight: 500;
+        font-size: .8rem;
+        text-align: center;
+        cursor: pointer;
+        transition: background 250ms ease-in-out, transform 150ms ease;
+    }
+    
+    .heroButton button:hover,
+    button:focus{
+        background-color:rgb(25, 119, 212);
+    }
+    
+    .heroButton button:focus {
+        outline: 1px solid rgb(22, 111, 201);
+        outline-offset: -4px;
+    }
+    
+    .heroButton button:active{
+        transform: scale(0.99);
+    }
+    .aboutSpacer{
+        /* border: 1px solid #1a29d6; */
+        height: 80px;
+    }
+    .aboutContainer{
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+    
+    .aboutTitle{
+        font-family: "Playfair Display";
+        color: var(--HEADER-TEXTCOLOR);
+        margin: 0.90rem;
+        background-color: black;
+    
+    }
+    
+    .aboutTitle h1{
+        padding: 0.25rem;
+        font-size: 3.25rem;
+        padding-left: 2rem;
+    }
+    
+    .aboutParagraph p{
+        margin: 0 1rem 1rem 1rem;
+        padding:0.7rem;
+        text-align: left;
+        font-weight: 300;
+        background-color: rgba(250, 249, 239, 0.897);
+        font-size: 1.10em;
+    }
+    
+    .aboutSpacer2{
+        /* border: 1px solid #1a29d6; */
+        height: 80px;
+    }
+    .aboutContainer2{
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+    }
+    
+    .aboutTitle2{
+        font-family: "Playfair Display";
+        color: var(--HEADER-TEXTCOLOR);
+        margin: 0.90rem;
+        background-color: black;
+    
+    }
+    
+    .aboutTitle2 h1{
+        padding: 0.25rem;
+        font-size: 3.25rem;
+        padding-left: 2rem;
+    }
+    
+    .aboutParagraph2 p{
+        margin: 0 1rem 1rem 1rem;
+        padding:0.7rem;
+        text-align: left;
+        font-weight: 300;
+        background-color: rgba(250, 249, 239, 0.897);
+        font-size: 1.10em;
+    }
+    
+    .aboutParagraph2 ul{
+        margin: 0 1rem 1rem 1rem;
+        padding:0.7rem;
+        text-align: left;
+        font-weight: 300;
+        background-color: rgba(250, 249, 239, 0.897);
+        font-size: 1.10em;
+    }
+    
+    
+    
 }
