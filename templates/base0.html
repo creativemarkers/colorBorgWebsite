@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'stylesTemplate.css')}}">
+    <script>
+        function scrollToSection(sectionId){
+            document.getElementById(sectionId).scrollIntoView({
+                behavior:"smooth"
+            })
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <section class="header-title-line">
+            <button class="menu-button">
+                <div class="menu-icon">
+                </div>
+            </button>
+            <h1>colorborg</h1>
+        </section>
+        <nav>
+            <ul>
+                <li><a class="anchor" href="{{ url_for('home') }}">About</a></li>
+                <li><a href="#">Contact Me</a></li>
+                <li><a class="anchor" href="{{ url_for('download') }}">Download</a></li>
+                {% if session.get('user') %}
+                    <li><a class="anchor" href="{{ url_for('logout') }}">Logout</a></li>
+                {% else %}
+                    <li><a class="anchor" href="{{ url_for('login') }}">Login</a></li>
+                {% endif %}    
+            </ul>
+        </nav>
+        <section class="title-decor">
+        </section>
+    </header>
+    <main>
+        <div class="mainTemplate">
+        {% block content %}
+        
+        {% endblock %}
+        </div>
+    </main>
+
+</body>
+</html>

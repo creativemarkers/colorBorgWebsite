@@ -1,0 +1,22 @@
+{% extends "base0.html" %}
+{% block title %}Colorborg: Login{% endblock %}
+
+
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <br>
+<form action="#" method="POST">
+    <p>Username:</p>
+    <p><input type="text" name="nm"></p>
+    <p>Password:</p>
+    <p><input type="text" name="pw"></p>
+    <p><input type="submit" value="login"></p>
+</form>
+{% endblock %}
