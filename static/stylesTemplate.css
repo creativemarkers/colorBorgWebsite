@@ -196,7 +196,10 @@ main{
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    margin: 1rem;
     padding: 1rem;
+    background-color: var(--HEADER-BGCOLOR);
+    color: var(--HEADER-TEXTCOLOR)
 }
 
 .verticalTitle{
