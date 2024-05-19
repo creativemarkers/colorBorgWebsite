@@ -1,0 +1,27 @@
+{% extends "base0.html" %}
+{% block title %}Colorborg: Admin Panel: Create Account{% endblock %}
+
+{% block content %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <br>
+    <form action="#" method="POST">
+        <p>Username:</p>
+        <p><input type="text" name="nm"></p>
+        <p>Password:</p>
+        <p><input type="text" name="pw"></p>
+        <p>Role:</p>
+        <p><input type="text" name="role"></p>
+        <!-- <p>Company:</p>
+        <p><input type="text" name="company"></p>
+        <p>Job Title:</p>
+        <p><input type="text" name="jobTitle"></p> -->
+        <p><input style="margin:0.5rem; padding: 0.5rem;" type="submit" value="Create Account"></p>
+    </form>
+{% endblock %}

@@ -421,6 +421,47 @@ button:focus{
     font-size: 1.10em;
 }
 
+footer{
+    background-color: var(--HEADER-BGCOLOR);
+    height: 100px;
+    text-align: center;
+    color: var(--HEADER-TEXTCOLOR);
+    /* overflow-y: hidden; */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+footer a, a:visited{
+    color: inherit;
+    text-decoration: none;
+}
+
+footer p{
+    font-size: 0.5rem;
+    margin-top: 0.5rem;
+}
+.footersocials{
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0.5rem;
+    margin-bottom: 0.25rem;
+    justify-content: center;
+}
+
+.footersocials img{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    fill: white;
+}
+
+.linkedin-icon {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    color: var(--HEADER-TEXTCOLOR) /* Change to desired color */
+}
+
+
 @media screen and (min-width:300px){
 
     .horizontal{

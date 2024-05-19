@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="{{url_for('static', filename = 'stylesTemplate.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename = 'stylesTemplate.css')}}"/>
+    {% block extra_head %}
+    {% endblock %}
     <script>
         function scrollToSection(sectionId){
             document.getElementById(sectionId).scrollIntoView({
@@ -26,7 +28,7 @@
             <ul>
                 <li><a class="anchor" href="{{ url_for('home') }}">About</a></li>
                 <li><a href="#">Contact Me</a></li>
-                <li><a class="anchor" href="{{ url_for('download') }}">Download</a></li>
+                <li><a class="anchor" href="{{ url_for('download') }}">Profile</a></li>
                 {% if session.get('user') %}
                     <li><a class="anchor" href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
@@ -44,6 +46,26 @@
         {% endblock %}
         </div>
     </main>
+    <footer>
+        <p><a href="">top</a> | <a href="{{url_for('login')}}">login</a> | <a href="{{url_for('home')}}">about</a></p>
+        <div class="footersocials">
+            <a href="https://github.com/creativemarkers">
+                <img src="{{ url_for('static', filename='images/github-mark-white.png')}}" alt="github icon" width="30px" height="30px">
+            </a>
+            <br>
+            <p>|</p>
+            <br>
+            <!-- <img src="{{ url_for('static', filename='images/linkedin.svg')}}" alt="" width="30px" height="30px"> -->
+            <a href="https://www.linkedin.com/in/fernando-n-sanchez-4b3856124/">
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="linkedin-icon">
+                <path d="M19 0H5C2.2 0 0 2.2 0 5V19C0 21.8 2.2 24 5 24H19C21.8 24 24 21.8 24 19V5C24 2.2 21.8 0 19 0ZM8 20H4V8H8V20ZM6 6.5C4.8 6.5 4 5.7 4 4.5C4 3.3 4.8 2.5 6 2.5C7.2 2.5 8 3.3 8 4.5C8 5.7 7.2 6.5 6 6.5ZM20 20H16V14C16 13 15.5 12 14.5 12C13.5 12 13 13 13 14V20H9V8H13V9.5C13.5 8.5 14.5 8 16 8C18 8 20 9.5 20 12V20Z" fill="currentColor"/>
+            </svg>
+            </a>
+        </div>
+        <p style="margin-top: 0;">
+            &copy 2024 Colorborg | designed by Fernando N Sanchez
+        </p>
+    </footer>
 
 </body>
 </html>

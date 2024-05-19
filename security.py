@@ -4,8 +4,38 @@ from argon2 import PasswordHasher
 
 ph = PasswordHasher()
 
+def pwStrengthChecker(password:str):
 
+    if 8 > len(password) <= 128:
+        return False
+    
+    if password.islower():
+        return False
+    
+    if password.isupper():
+        return False
+    
+    if password.isdigit():
+        return False
+    
+    specialCharacters = "!@#$%^&*()_-=+[]|:;<>/., "
+    numbers = "0123456789"
+    hasSpecChar=False
+    hasNumber=False
+    for char in password:
 
+        if hasSpecChar == False and char in specialCharacters:
+            hasSpecChar = True
+    
+        if hasNumber == False and char in numbers:
+            hasNumber = True
+
+    if not hasSpecChar:
+        return False
+    if not hasNumber:
+        return False
+
+    return True
 
 def saltDecoder(encodedSalt):
     return base64.b64decode(encodedSalt)
@@ -19,11 +49,7 @@ def salter(rawPassword:str)->bytes:
     binaryPassword = rawPassword.encode("utf-8")
     saltedPassword = binaryPassword + salt
     encodedSalt = saltEncoder(salt)
-    print(type(encodedSalt))
     salt = saltDecoder(encodedSalt)
-    print(type(salt))
-    
-
     return encodedSalt, saltedPassword
 
 def hasher(saltedPassword:bytes)->str:
@@ -38,7 +64,11 @@ def pwVerifier(previousHash, rawpassword, encodedSalt):
     return ph.verify(previousHash, saltedPassword)
 
 def main():
-    salter("caca")
+    # salter("caca")
+    result = pwStrengthChecker("cacaPeePoo!1")
+    print(result)
+    result = pwStrengthChecker("cacaP!10")
+    print(result)
     pass
 
 if __name__ == "__main__":

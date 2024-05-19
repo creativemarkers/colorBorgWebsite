@@ -1,5 +1,5 @@
 {% extends "base0.html" %}
-{% block title %}Colorborg: Login{% endblock %}
+{% block title %}{% endblock %}
 
 
 
@@ -12,11 +12,12 @@
         {% endif %}
     {% endwith %}
     <br>
-<form action="#" method="POST">
+<form action="#" method="POST" style="text-align: center;">
     <p>Username:</p>
     <p><input type="text" name="nm"></p>
     <p>Password:</p>
-    <p><input type="text" name="pw"></p>
-    <p><input type="submit" value="login"></p>
+    <p><input type="password" name="pw"></p>
+    <p><input style="margin:0.6rem; padding: 0.5rem;" type="submit" value="Login" name = "login"></p>
 </form>
+<a href="{{ url_for('userAccountCreation')}}"><button style="margin: 0.3rem;padding: 0.5rem;">Create Account</button></a>
 {% endblock %}

@@ -1,0 +1,24 @@
+{% extends "base0.html" %}
+{% block title %}Colorborg: Admin Panel{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <br>
+    <div>
+        <a href="{{ url_for('admin.createAccountPanel') }}">
+            <button style="margin: 1rem; padding: 0.5rem;">Create Users</button>
+        </a>
+        <a href="{{ url_for('admin.deleteUsers')}}">
+            <button style="margin: 1rem; padding: 0.5rem;">Delete Users</button>
+        </a>
+        <a href="{{ url_for('admin.view') }}">
+            <button style="margin: 1rem; padding: 0.5rem;">View Users</button>
+        </a>
+    </div>
+{% endblock %}

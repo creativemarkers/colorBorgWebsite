@@ -26,7 +26,7 @@
             <ul>
                 <li><a class="anchor" href="#about-offset">About</a></li>
                 <li><a href="#">Contact Me</a></li>
-                <li><a class="anchor" href="{{ url_for('download') }}">Download</a></li>
+                <li><a class="anchor" href="{{ url_for('download') }}">Profile</a></li>
                 {% if session.get('user') %}
                     <li><a class="anchor" href="{{ url_for('logout') }}">Logout</a></li>
                 {% else %}
@@ -58,7 +58,8 @@
                         </div>
                         <div id="intro" class="introparagraph">
                             <!-- Colorborg was designed from the groundup, as a modular codebase with maintainability in mind. Written in python the program has allowed me to bring my full problem solving skills i have gained over the years in IT and programming. -->
-                            I started programming in January, and by May, I had created Colorborg—a modular codebase designed from scratch for maintainability. Built in Python, it demonstrates my rapid learning and problem-solving skills, informed by my background in IT. Colorborg isn't just a project; it's a proof of concept for scalable and efficient solutions, showing that even in a short time, you can build something robust.
+                            <!-- I started programming in January, and by May, I had created Colorborg—a modular codebase designed from scratch for maintainability. Built in Python, it demonstrates my rapid learning and problem-solving skills, informed by my background in IT. Colorborg isn't just a project; it's a proof of concept for scalable and efficient solutions, showing that even in a short time, you can build something robust. -->
+                            I started programming in January, and by May, I had created Colorborg—a modular codebase designed from scratch for maintainability. Built in Python, it demonstrates my rapid learning and problem-solving skills, informed by my background in IT. Additionally, I coded this website from scratch, showcasing my ability to build robust and scalable solutions quickly. Colorborg isn't just a project; it's a proof of concept for efficient and maintainable solutions, showing that even in a short time, you can build something substantial.
                         </div>
                         <div class="heroButton" onclick="scrollToSection('about')">
                             <button type="button">
@@ -80,9 +81,10 @@
                                 <br>
                                 <br>
                                 The system's modularity plays a significant role in its flexibility; most functions are written to be universal, allowing them to be reused for other skills. This plug-and-play approach helps ensure that the bot is easily adaptable and expandable for additional in-game tasks.
-
-                                <img src="imgs/promoSS1.png" alt="promo screenshot #1" width="400" height="400">
                             </p>
+                    
+                                <img src="{{url_for('static', filename='images/promoScreenshot1.png')}}" alt="promo screenshot #1" width="400" height="400">
+                    
                         </div>
                     </div>
                 </div>
@@ -137,7 +139,63 @@
                         </div>
                     </div>
                 </div>
+                <div class="aboutContainer">
+                    <!-- <div id="about3-offset" class="aboutSpacer">
+                    </div> -->
+                    <div id="about3" class="aboutcontent">
+                        <div class="about3Title">
+                            <h1> about the site.</h1>
+                        </div>
+                        <div class="aboutParagraph">
+                            <p>
+                                <span class="about3smallTitles">
+                                Design and Frontend
+                                </span>
+                                <br>
+                        
+                                I designed this website to be colorful and vibrant, paying homage to the name of the bot, the program it showcases. The frontend is built using HTML and CSS, ensuring a responsive and visually appealing experience across all devices. My goal was to create a user-friendly interface that effectively highlights my projects and skills while reflecting the essence of Colorborg.
+
+                                <span class="about3smallTitles"
+                                style="padding-left: 1.8rem;">
+                                    Backend and Security
+                                </span>
+                                <br>
+                                Security is a top priority in my development process. The backend of this website is powered by Flask, with robust security measures implemented throughout. Passwords are securely hashed and salted, and sensitive areas of the site are protected by role-based permissions. I coded the admin panel from scratch, ensuring it is accessible only to authorized users.
+                                <br>
+                                <span class="about3smallTitles"
+                                style="padding-left: 1.4rem;">
+                                    My Skills and Approach
+                                </span>
+                                <br>
+                                My approach to development is rooted in creating scalable, efficient, and secure solutions. With a foundation in IT and a commitment to continuous learning, I am always eager to tackle new challenges and deliver high-quality work.
+
+                                Thank you for visiting my portfolio. I invite you to explore my projects and see firsthand the skills and dedication I bring to my work. If you're interested in learning more or discussing potential opportunities, please don't hesitate to contact me.
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
     </main>
+    <footer>
+        <p><a href="">top</a> | <a href="{{url_for('login')}}">login</a> | <a href="#about-offset">about</a></p>
+        <div class="footersocials">
+            <a href="https://github.com/creativemarkers">
+                <img src="{{ url_for('static', filename='images/github-mark-white.png')}}" alt="github icon" width="30px" height="30px">
+            </a>
+            <br>
+            <p>|</p>
+            <br>
+            <!-- <img src="{{ url_for('static', filename='images/linkedin.svg')}}" alt="" width="30px" height="30px"> -->
+            <a href="https://www.linkedin.com/in/fernando-n-sanchez-4b3856124/">
+            <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="linkedin-icon">
+                <path d="M19 0H5C2.2 0 0 2.2 0 5V19C0 21.8 2.2 24 5 24H19C21.8 24 24 21.8 24 19V5C24 2.2 21.8 0 19 0ZM8 20H4V8H8V20ZM6 6.5C4.8 6.5 4 5.7 4 4.5C4 3.3 4.8 2.5 6 2.5C7.2 2.5 8 3.3 8 4.5C8 5.7 7.2 6.5 6 6.5ZM20 20H16V14C16 13 15.5 12 14.5 12C13.5 12 13 13 13 14V20H9V8H13V9.5C13.5 8.5 14.5 8 16 8C18 8 20 9.5 20 12V20Z" fill="currentColor"/>
+            </svg>
+            </a>
+        </div>
+        <p style="margin-top: 0;">
+            &copy 2024 Colorborg | designed by Fernando N Sanchez
+        </p>
+    </footer>
 </body>
 </html>

@@ -1,0 +1,26 @@
+{% extends "base0.html" %}
+{% block title %}ColorBorg: Create Account{% endblock %}
+
+{% block content %}
+<p style="text-align: center;  color: rgb(255, 76, 76);">Please dont use a common password while this site is secure, i am a novice hobbyist and can't gaurantee full security of the database storing the passwords.</p>
+<br>
+<form action="#" method="POST" style="text-align: center;">
+    <p style="padding-top: 0.25rem;">Username:</p>
+    <p ><input type="text" name="usn"></p>
+    <p style="padding-top: 0.25rem;">Password:</p>
+    <p><input type="password" name="pw"></p>
+    <p style="padding-top: 0.25rem;">Re Enter Password:</p>
+    <p><input type="password" name="pw2"></p>
+    <p style="padding-top: 0.25rem;">Email:</p>
+    <p><input type="text" name="email"></p>
+    <p><input style="margin:0.75rem; padding: 0.5rem;" type="submit" value="Create Account" name="create account"></p>
+</form>
+<br>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for msg in messages %}
+            <p>{{msg}}</p>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+{% endblock %}

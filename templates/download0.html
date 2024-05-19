@@ -16,4 +16,21 @@
         <input type="submit" value="submit"/>
     </form>
 
+    {% if session.get('role')%}
+        {% if session.get('role') == 'admin' %}
+            <a href="{{ url_for('admin.adminPanel') }}"><button> admin panel</button></a>
+        {% endif %}
+    {% endif %}
+
+    <div style="
+    display: flex;
+    flex-flow: column nowrap;
+    text-align: center;
+    ">
+        <h1 style="">Thank you for checking out Colorbot and by Extension my portfolio website</h1>
+        <br>
+        <h3>Below you will find some links and documents depending on your account's role</h3>
+        <p>all roles will have access to see my socials</p>
+
+    </div>
 {% endblock %}

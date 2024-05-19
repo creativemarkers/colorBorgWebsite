@@ -169,7 +169,7 @@ nav a:hover, nav a:focus{
     width: 600%;
     animation: gradient-animation 10s linear infinite alternate;
     height: 4px;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 @keyframes gradient-animation {
@@ -361,6 +361,13 @@ button:focus{
     padding-left: 2rem;
 }
 
+.aboutParagraph{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    justify-content: center;
+}
+
 .aboutParagraph p{
     margin: 0 1rem 1rem 1rem;
     padding:0.9rem;
@@ -371,6 +378,24 @@ button:focus{
     background-color: var(--HEADER-BGCOLOR);
     color: var(--HEADER-TEXTCOLOR);
     font-size: 1.10em;
+
+}
+
+.aboutParagraph img{
+    /* margin-left: 1rem;
+    margin-right: 1rem; */
+    width: 86%;
+    height: auto;
+    border: 0.5rem solid var(--HEADER-BGCOLOR);
+
+}
+
+.aboutParagraphImgDiv{
+    margin-left: 1rem;
+    background-color: var(--HEADER-BGCOLOR);
+    display: flex;
+    flex: column nowrap;
+    align-items: center;
 }
 
 .aboutSpacer2{
@@ -419,6 +444,74 @@ button:focus{
     color: var(--HEADER-TEXTCOLOR);
     font-size: 1.10em;
 }
+
+
+footer{
+    background-color: var(--HEADER-BGCOLOR);
+    height: 100px;
+    text-align: center;
+    color: var(--HEADER-TEXTCOLOR);
+    /* overflow-y: hidden; */
+}
+
+footer a, a:visited{
+    color: inherit;
+    text-decoration: none;
+}
+
+footer p{
+    font-size: 0.5rem;
+    margin-top: 0.5rem;
+}
+.footersocials{
+    display: flex;
+    flex-flow: row nowrap;
+    margin: 0.5rem;
+    margin-bottom: 0.25rem;
+    justify-content: center;
+}
+
+.footersocials img{
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    fill: white;
+}
+
+.linkedin-icon {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    color: var(--HEADER-TEXTCOLOR) /* Change to desired color */
+}
+
+.about3Title{
+    font-family: "Playfair Display";
+    color: var(--HEADER-TEXTCOLOR);
+    margin: 0.90rem;
+    background-color: var(--HEADER-BGCOLOR);
+    text-align: center;
+    padding:.5rem;
+
+}
+
+.about3Title h1{
+    font-size: 2.75rem;
+}
+
+/* .about3Title h1{
+    background-color: #1a29d6;
+    padding: 0.25rem;
+    font-size: 10rem;
+    padding-left: 2rem;
+} */
+
+.about3smallTitles{
+    font-size: 1.35rem;
+    text-align: center;
+    padding-left: 2.20rem;
+    font-weight: bold;
+    line-height: 3rem;
+}
+
 
 @media screen and (min-width:300px){
 

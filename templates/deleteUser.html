@@ -1,0 +1,37 @@
+{% extends "base0.html" %}
+{% block title %}Colorborg: Admin Panel: Create Account{% endblock %}
+
+{% block content %}
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <br>
+
+    {% if not value %}
+
+        <form action="#" method="POST">
+            <p>Username:</p>
+            <p><input type="text" name="nm"></p>
+            <input type="submit" value="delete" name="test">
+        </form>
+        
+
+    {% else %}
+
+        <p>USER FOUND! Confirm Below to Delete: {{value.name}}</p>
+        <br>
+        <form action="#" method="POST">
+            <input style="padding: 0.5rem;" type="submit" name="test2" value="{{ value.name }}"></input>
+            <input type="hidden" name="test">
+        </form>
+
+    {% endif %}
+
+
+{% endblock %}

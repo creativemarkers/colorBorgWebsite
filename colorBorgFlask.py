@@ -1,13 +1,14 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
-from security import salter, hasher, saltDecoder, pwVerifier
+from security import salter, hasher, saltDecoder, pwVerifier, pwStrengthChecker
+from admin import admin
+from argon2.exceptions import VerifyMismatchError
 
 app = Flask(__name__)
-app.secret_key = "Ce5w9nw4aAfK9XXKVpwhP4rFh5nft9bf3h4vGYLpUnwANtvADucBMpJpejdreFdXptGAbbDz4xdrAA7SSqn33NB5gkNbKBQRgU5VwLZkxqVLUPRdA2M5bMQY7vERgXFdHFAPpzwZrtzkLks99UUqqQCcDf6uh42M"
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Users.sqlite3'
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.permanent_session_lifetime = timedelta(minutes=5)
+app.register_blueprint(admin, url_prefix="")
+
+app.config.from_object('config.Config')
 
 db = SQLAlchemy(app)
 
@@ -16,66 +17,67 @@ class Users(db.Model):
     name = db.Column(db.String(100))
     salt = db.Column(db.String(128))
     hash = db.Column(db.String(200))
+    role = db.Column(db.String(50))
     email = db.Column(db.String(200))
+    # company = db.Column(db.String(200))
+    # jobTitle = db.Column(db.String(200))
 
 
-    def __init__(self,name,salt,hash,email):
+    def __init__(self,name,salt,hash,role,email):
         self.name = name
         self.salt = salt
         self.hash = hash
+        self.role = role
         self.email = email
 
 @app.route("/")
 def home():
     return render_template("index0.html")
 
-@app.route("/view")
-def view():
-    return render_template("view.html", values = Users.query.all())
-
 @app.route("/login", methods=["POST","GET"])
 def login():
-    if request.method == "POST":
-        session.permanent = True
-        user = request.form["nm"]
-        pw = request.form["pw"]
-        session["user"] = user
 
-        foundUser = Users.query.filter_by(name=user).first()
-    
-        if foundUser:
-            encodedsalt = foundUser.salt
-            print(type(encodedsalt))
-            hash = foundUser.hash
-            pwVerifier(hash,pw,encodedsalt)
-            # if not pwVerifier(hash,pw,salt):
-            #     flash("Wrong Password,try again")
-            #     return render_template("login0.html")
-
-            session["email"] = foundUser.email
-
-        else:
-            salt, saltedPassword = salter(pw)
-            hash = hasher(saltedPassword)
-            # retry =  salt + pw.encode("utf-8")
-            usr = Users(user, salt, hash, None)
-            db.session.add(usr)
-            db.session.commit()
-
-        flash("Login Succesful!")
+    if "user" in session:
+        flash("Already Logged In!")
         return redirect(url_for("download"))
-    else:
-        if "user" in session:
-            flash("Already Logged In!")
-            return redirect(url_for("download"))
-        return render_template("login0.html")
+    
+    if request.method == "POST":
+        
+        if request.form["login"]:
+                # return render_template("login0.html")
+            session.permanent = True
+            user = request.form["nm"]
+            pw = request.form["pw"]
+            session["user"] = user
+            foundUser = Users.query.filter_by(name=user).first()
+        
+            if foundUser:
+                encodedsalt = foundUser.salt
+
+                hash = foundUser.hash
+                try:
+                    pwVerifier(hash,pw,encodedsalt)
+                except VerifyMismatchError:
+                    #need to add a logging and lockout here
+                    flash("You've entered the wrong password or Username! Try Again")
+                    return render_template("login0.html")
+                session["role"] = foundUser.role
+                print("role", session["role"])
+                session["email"] = foundUser.email
+                flash("Login Succesful!")
+                return redirect(url_for("download"))
+            else:
+                flash("You've entered the wrong password or Username! Try Again")
+                return render_template("login0.html")
+
+    return render_template("login0.html")
+
 
 @app.route("/download", methods=["POST","GET"])
 def download():
     email = None
     if "user" in session:
         user = session["user"]
-
         if request.method == "POST":
             email=request.form["email"]
             session["email"] = email
@@ -92,6 +94,45 @@ def download():
         flash("You are not logged in!")
         return redirect(url_for("login"))
     
+
+@app.route("/userAccountCreation", methods=["POST", "GET"])
+def userAccountCreation():
+
+    if "user" in session:
+        flash("Already Logged In!")
+        return redirect(url_for("download"))
+    
+    if request.method == "POST":
+
+        username = request.form["usn"]
+        password = request.form["pw"]
+        password2 = request.form["pw2"]
+        email = request.form["email"]
+
+        foundUser = Users.query.filter_by(name=username).first()
+
+        if foundUser:
+            flash("Account with that username already exsists")
+            return render_template("createAccount.html")
+        
+        if password != password2:
+            flash("passwords do not match")
+            return render_template("createAccount.html")
+        
+        if pwStrengthChecker(password):
+            from addUser import addUser
+            addUser(username,password,"user",email)
+            flash("Account created Successfully")
+
+            return redirect(url_for("login"))
+        else:
+            flash("Password must be longer than 8 characters, make sure to include upper and lower case letters, a number, and at least one special charcter!")
+            return render_template("createAccount.html")
+
+
+    return render_template("createAccount.html")
+
+
 @app.route("/logout")
 def logout():
     if "user" in session:
@@ -99,6 +140,7 @@ def logout():
         flash(f"You have been logged out, {user}","info")
         session.pop("user", None)
         session.pop("email",None)
+        session.pop("role",None)
         return redirect(url_for("login"))
     else:
         flash(f"You're not logged in")
