@@ -1,7 +1,12 @@
 from colorBorgFlask import app, db, Users
 from security import salter, hasher
 
-def addUser(username,password,role, email=None):
+"""
+unlock user
+"""
+
+
+def addUser(username,password,role, email=None,company=None,jobTitle=None):
     with app.app_context():
         username =  username
         password = password
@@ -15,7 +20,7 @@ def addUser(username,password,role, email=None):
         salt, saltedPassword = salter(password)
         hash = hasher(saltedPassword)
         # retry =  salt + pw.encode("utf-8")
-        usr = Users(username, salt, hash, role, email)
+        usr = Users(username, salt, hash, role, email, company, jobTitle)
         db.session.add(usr)
         db.session.commit()
 

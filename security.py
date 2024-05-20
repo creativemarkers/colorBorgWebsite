@@ -1,8 +1,38 @@
 import base64
+import string
 from os import urandom
 from argon2 import PasswordHasher
 
 ph = PasswordHasher()
+
+def emailValidator(emailStr:str):
+    hasa = False
+    hasp = False
+
+    acceptableChars = set(string.ascii_lowercase + string.ascii_uppercase + string.digits + "_-@.")
+
+    for c in emailStr:
+        if c not in acceptableChars:
+            return False
+        if hasa == True and c == "@":
+            return False
+        if hasp == True and c ==".":
+            return False
+        if c == "@":
+            hasa=True
+        if hasa == True  and c == ".":
+            hasp = True
+
+    if hasa and hasp:
+        return True
+    return False
+
+def usernameSanitation(inputStr:str):
+    acceptableChars = set(string.ascii_lowercase + string.ascii_uppercase + string.digits + "_" + "-" )
+    for c in inputStr:
+        if c not in acceptableChars:
+            return False
+    return True
 
 def pwStrengthChecker(password:str):
 
@@ -18,7 +48,7 @@ def pwStrengthChecker(password:str):
     if password.isdigit():
         return False
     
-    specialCharacters = "!@#$%^&*()_-=+[]|:;<>/., "
+    specialCharacters = "!@#$%^&*()_-=+[]|:;<>/\".,\\"
     numbers = "0123456789"
     hasSpecChar=False
     hasNumber=False
@@ -64,10 +94,32 @@ def pwVerifier(previousHash, rawpassword, encodedSalt):
     return ph.verify(previousHash, saltedPassword)
 
 def main():
-    # salter("caca")
-    result = pwStrengthChecker("cacaPeePoo!1")
+    # # salter("caca")
+    # result = pwStrengthChecker("cacaPeePoo!1")
+    # print(result)
+    # result = pwStrengthChecker("cacaP!10")
+    # print(result)
+
+    # result = usernameSanitation("cac*^!")
+    # print(result)
+    # result = usernameSanitation("bigTittyGothGirl28")
+    # print(result)
+    # result = usernameSanitation("extremelyF_itBossom-!")
+    # print(result)
+    # result = usernameSanitation("extremelyF_itBossom-")
+    # print(result)
+
+    result = emailValidator("tittyfuck@birdfuck.com")
     print(result)
-    result = pwStrengthChecker("cacaP!10")
+    result = emailValidator("tittyfuckbirdfuck.com")
+    print(result)
+    result = emailValidator("tittyfuck@birdfuckcom")
+    print(result)
+    result = emailValidator("tittyfuckir.dfuck@co.m")
+    print(result)
+    result = emailValidator("tittyfu\c---kir.dfuck@co.m")
+    print(result)
+    result = emailValidator("tittyfu_kir.dfuck@co.m")
     print(result)
     pass
 

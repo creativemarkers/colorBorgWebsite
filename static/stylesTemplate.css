@@ -458,7 +458,8 @@ footer p{
 .linkedin-icon {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    color: var(--HEADER-TEXTCOLOR) /* Change to desired color */
+    color: var(--HEADER-TEXTCOLOR) /* Change to desired color */;
+    fill: rgb(250, 249, 239)
 }
 
 

@@ -10,27 +10,65 @@
         {% endif %}
     {% endwith %}
 
-    <p>Welcome, {{user}} </p>
-    <form action="#" method="POST">
+    <h1>Welcome, {{user}} </h1>
+    <!-- <form action="#" method="POST">
         <input type="email" name="email" placeholder="Enter Email" value="{{email if email}}"/>
         <input type="submit" value="submit"/>
-    </form>
-
-    {% if session.get('role')%}
-        {% if session.get('role') == 'admin' %}
-            <a href="{{ url_for('admin.adminPanel') }}"><button> admin panel</button></a>
-        {% endif %}
-    {% endif %}
-
+    </form> -->
+    
+    
     <div style="
     display: flex;
     flex-flow: column nowrap;
     text-align: center;
     ">
-        <h1 style="">Thank you for checking out Colorbot and by Extension my portfolio website</h1>
-        <br>
-        <h3>Below you will find some links and documents depending on your account's role</h3>
-        <p>all roles will have access to see my socials</p>
+        <!-- <h1 style="">Thank you for checking out Colorbot and by Extension my portfolio website</h1> -->
 
+        <h3>Below you will find some links and documents depending on your account's role</h3>
+        
+        {% if session.get('role')=="employer" %}
+        <a href="{{url_for('static',filename = 'files/text.txt')}}", download="">test</a>
+        {% endif %}
+        
+        <div class="loginlandingPageContent"
+        style="
+        display: flex;
+        flex-flow: row nowrap;
+        ">
+            <div class="leftlogincontent"
+            style="border: dodgerblue 2px solid;
+            width: 50%;
+            display: flex;
+            flex-flow: column nowrap;
+            margin: 1rem;
+            padding: 0.5rem;
+            ">
+                <p>To prospective employers: thanks for checking out my website and project, if you would like access to the source code for colorborg please do not hesitate to get in touch, due to the nature of the program i would prefer to keep the repo private for now.</p>
+            </div>
+            
+            <div class="rightlogincontent"
+            style="border: dodgerblue 2px solid;
+            width: 50%;
+            display: flex;
+            flex-flow: column nowrap;
+            margin: 1rem;
+            padding: 0.5rem;
+            ">
+                {% if session.get('role')%}
+                    {% if session.get('role') == 'admin' %}
+                        <a href="{{ url_for('admin.adminPanel') }}"><button style="margin:0.5rem; padding:0.5rem; width: 100%;"> Admin Panel </button></a>
+                    {% endif %}
+                {% endif %}
+            
+                <a href="{{url_for('static',filename='files/text.txt')}}" download=""><button style="margin:0.5rem; padding:0.5rem; width: 100%;">Download</button></a>
+
+                <a href="#"><button style="margin:0.5rem; padding:0.5rem;width: 100%;">Contact Me</button></a>
+
+                <a href="https://github.com/creativemarkers"><button style="margin:0.5rem; padding:0.5rem;width: 100%;">Github</button></a>
+                
+                <a href="https://www.linkedin.com/in/fernando-n-sanchez-4b3856124/"><button style="margin:0.5rem; padding:0.5rem;width: 100%;">LinkedIn</button></a>
+                
+            </div>
+        </div>
     </div>
 {% endblock %}

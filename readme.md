@@ -1,13 +1,29 @@
 # to do
-    ~hash passwords~
-    ~~create an account request page~~
-    ~~admin portal for me to easily create accounts~~
-    ~~easily delete users~~ or change their permissions
-    add my socials and more then likely make my github repo public
-    password reset
-    add analytics, hits, from where, if it came a from a  user, what links what they pressed 
 
+    make my github colorborg repo public?
+    ~~still need to add a download section~~ need to provide a link for the actual bot
+    add email icon at footer
+
+
+
+    more security
+        email sanitation
+        account lockouts
+        rate limiting
+
+    cross site request forgery
+
+    fix about section
+    logging
+    need to add the below column
+    # company = db.Column(db.String(200))
+    # jobTitle = db.Column(db.String(200))
+    add analytics, hits, from where, if it came a from a  user, what links what they pressed 
+    password reset
+    change user permissions
     pretty up the stuff i made on the backend
+
+
 
 # low hanging security fruit 
 

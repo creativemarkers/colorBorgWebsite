@@ -24,9 +24,12 @@ def createAccountPanel():
     if session.get("role") != "admin":
         flash("Insufficient Permissions")
         return redirect(url_for("download"))
-    
     if request.method == "POST":
+        from security import usernameSanitation
         user = request.form["nm"]
+        if not usernameSanitation(user):
+            flash("usernames may only include lowercase, uppercase letters,digits, _ and - ")
+            return render_template("adminCreateAccount.html")
         password = request.form["pw"]
         role = request.form["role"]
 
@@ -66,6 +69,10 @@ def deleteUsers():
         if request.form["test"]:
             # print("test2")
             username = request.form["nm"]
+            from security import usernameSanitation
+            if not usernameSanitation(username):
+                flash("usernames may only include lowercase, uppercase letters,digits, _ and - ")
+                return render_template("deleteUser.html")
             # print(type(username))
             with app.app_context():
                 foundUser = Users.query.filter_by(name=username).first()
