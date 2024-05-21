@@ -13,6 +13,3 @@ limiter = Limiter(
     storage_uri="memory://",
     on_breach=defaultErrorResponder
 )
-
-# def emailSendingLimit():
-#     return f"email-send-{get_remote_address()}"

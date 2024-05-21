@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
+from flask import Flask, render_template, request, session, redirect, url_for, flash, send_from_directory
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from security import salter, hasher, saltDecoder, pwVerifier, pwStrengthChecker, usernameSanitation, emailValidator
@@ -7,11 +7,45 @@ from argon2.exceptions import VerifyMismatchError
 from extensions import limiter
 from flask_wtf import CSRFProtect
 from flask_mail import Mail, Message
+from flask_talisman import Talisman
 from dotenv import load_dotenv
+import os
+from datetime import datetime
 
 load_dotenv()
 
 app = Flask(__name__)
+
+csp = {
+    'default-src': [
+        '\'self\'',
+        'cdnjs.cloudflare.com',
+        'stackpath.bootstrapcdn.com',
+        'fonts.googleapis.com',  # Allow Google Fonts
+        'fonts.gstatic.com'      # Allow Google Fonts
+    ],
+    'style-src': [
+        '\'self\'',
+        'cdnjs.cloudflare.com',
+        'stackpath.bootstrapcdn.com',
+        'fonts.googleapis.com',
+        '\'unsafe-inline\''
+    ],
+    'font-src': [
+        '\'self\'',
+        'fonts.googleapis.com',
+        'fonts.gstatic.com'
+    ],
+    'script-src': [
+        '\'self\'',
+        'cdnjs.cloudflare.com',
+        'stackpath.bootstrapcdn.com',
+    ],
+    'img-src': [
+        '\'self\'',
+        'data:'
+    ]
+}
 
 app.config.from_object('config.Config')
 
@@ -19,6 +53,7 @@ limiter.init_app(app=app)
 csrf = CSRFProtect(app)
 csrf.init_app(app)
 mail = Mail(app)
+Talisman(app, content_security_policy=csp)
 
 app.register_blueprint(admin, url_prefix="")
 
@@ -109,25 +144,46 @@ def login():
 
 @app.route("/download", methods=["POST","GET"])
 def download():
-    email = None
-    if "user" in session:
-        user = session["user"]
-        
-        if request.method == "POST":
-            email=request.form["email"]
-            session["email"] = email
-            foundUser = Users.query.filter_by(name=user).first()
-            foundUser.email = email
-            db.session.commit()
-            flash("Your Email has been saved!")
-        else:
-            if "email" in session:
-                email = session["email"]
-
-        return render_template("download0.html", user=user, email=email)
-    else:
+    if "user" not in session:
         flash("You are not logged in!")
         return redirect(url_for("login"))
+    
+    user = session["user"]
+    email = session["email"]
+    return render_template("download0.html", user=user, email=email)
+
+@app.route('/download/<filename>')
+def downloadFile(filename):
+
+    if "user" not in session:
+        flash("You need to be logged in to download this file")
+        return redirect(url_for('login'))
+    
+    if "downloads" not in session:
+        session["downloads"] = 1
+
+    if session["downloads"] <= 5:
+
+        session["downloads"] += 1
+        with open('logs/downloads.txt', 'rb') as downloadLog:
+            downloadLog.seek(-2, os.SEEK_END)
+            while downloadLog.read(1) != b'\n':
+                downloadLog.seek(-2, os.SEEK_CUR)
+            lastLine = downloadLog.readline().decode()
+
+            lastDlNumber =  None
+            for i,c, in enumerate(lastLine):
+                if c == " ":
+                    lastDlNumber = lastLine[:i]
+                    lastDlNumber =  int(lastDlNumber)
+                    break
+        with open('logs/downloads.txt', 'a', encoding="utf-8") as downloadLog:
+            downloadLog.write(f"{lastDlNumber+1} {session['user']} {filename} {datetime.now()} \n")
+
+        return send_from_directory(directory='static/files', path=filename)
+    else:
+        flash("Too many downloads today")
+        return redirect(url_for('download'))
 
 @app.route("/userAccountCreation", methods=["POST", "GET"])
 @limiter.limit("1/second",override_defaults=False)
@@ -185,30 +241,32 @@ def logout():
         flash(f"You're not logged in")
         return redirect(url_for("login"))
     
-# def emailSendingLimit():
-#     return f"email-send-{get_remote_address()}"
-
 @app.route("/contactMe", methods=["POST","GET"])
-# @limiter.limit("2 per day", key_func=)
 def contactMe():
 
+    if "user" not in session:
+        flash("Please log in to get in touch with me!")
+        return redirect('login')
+
+    if "contactMeCount" not in session:
+        session['contactMeCount'] = 0
+
     if request.method == "POST":
-
         # with limiter.limit
-
-        msgContent = request.form['message']
-        msg = Message("TEST MESSAGE:", body=msgContent,
-                    recipients=['nerudasrs@gmail.com']
-        )
-
-        # try:
-        mail.send(msg)
-            # flash("Message sent")
-        # except Exception as e:
-        #     flash(e)
-
+        if session["contactMeCount"] <= 2:
+            msgContent = request.form['message']
+            recip = app.config['RECIPIENT_EMAIL']
+            try:
+                msg = Message(f"Message from ContactMe | {app.name}", body=f"FROM:{session['user']}, EMAIL:{session['email']}, CONTENT: {msgContent}",
+                            recipients=[recip]
+                )
+                mail.send(msg)
+                flash("Message sent")
+            except Exception as e:
+                flash(e)
+        else:
+            flash("You've contacted me too many times in 24hours")
     return render_template("contactMe.html")
-
 
 @app.errorhandler(404)
 def pageNotFound(e):

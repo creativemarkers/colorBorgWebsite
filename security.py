@@ -44,18 +44,22 @@ def usernameSanitation(inputStr:str):
 def pwStrengthChecker(password:str):
 
     if 8 > len(password) <= 128:
+        # print("too long, too short")
         return False
     
     if password.islower():
+        # print("no uppercase")
         return False
     
     if password.isupper():
+        # print("no lowercase")
         return False
     
     if password.isdigit():
+        # print("onlynumber")
         return False
     
-    specialCharacters = "!@#$%^&*()_-=+[]|:;<>/\".,\\"
+    specialCharacters = "!@#$%^&*()_-=+[]|:;<>?/\".,\\"
     numbers = "0123456789"
     hasSpecChar=False
     hasNumber=False
@@ -68,8 +72,10 @@ def pwStrengthChecker(password:str):
             hasNumber = True
 
     if not hasSpecChar:
+        # print("no spec char")
         return False
     if not hasNumber:
+        # print("no number")
         return False
 
     return True

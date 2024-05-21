@@ -60,9 +60,9 @@
                     {% endif %}
                 {% endif %}
             
-                <a href="{{url_for('static',filename='files/text.txt')}}" download=""><button style="margin:0.5rem; padding:0.5rem; width: 100%;">Download</button></a>
+                <a href="{{ url_for('downloadFile', filename='test.txt') }}" download=""><button style="margin:0.5rem; padding:0.5rem; width: 100%;">Download</button></a>
 
-                <a href="#"><button style="margin:0.5rem; padding:0.5rem;width: 100%;">Contact Me</button></a>
+                <a href="{{url_for('contactMe')}}"><button style="margin:0.5rem; padding:0.5rem;width: 100%;">Contact Me</button></a>
 
                 <a href="https://github.com/creativemarkers"><button style="margin:0.5rem; padding:0.5rem;width: 100%;">Github</button></a>
                 

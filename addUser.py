@@ -1,6 +1,21 @@
 from colorBorgFlask import app, db, Users
 from security import salter, hasher
 
+
+def changePassword(username, newpassword):
+    with app.app_context():
+        foundUser = Users.query.filter_by(name=username).first()
+        if foundUser:
+            salt, saltedPassword = salter(newpassword)
+            hash = hasher(saltedPassword)
+            foundUser.salt = salt
+            foundUser.hash = hash
+            db.session.commit()
+
+            print(f"{username}'s password has been changed")
+        else:
+            print("user not found")
+
 def changeRole(username,role):
     with app.app_context():
         foundUser = Users.query.filter_by(name=username).first()
@@ -30,7 +45,7 @@ def addUser(username,password,role, email=None,company=None,jobTitle=None):
 
         foundUser = Users.query.filter_by(name=username).first()
         if foundUser:
-            print("foundUser")
+            print("user already exsits")
             return False
 
         salt, saltedPassword = salter(password)
