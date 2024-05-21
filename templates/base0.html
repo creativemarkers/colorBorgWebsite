@@ -28,7 +28,7 @@
         <nav>
             <ul>
                 <li><a class="anchor" href="{{ url_for('home') }}">About</a></li>
-                <li><a href="#">Contact Me</a></li>
+                <li><a href="{{ url_for('login') }}">Contact Me</a></li>
                 <li><a class="anchor" href="{{ url_for('download') }}">Profile</a></li>
                 {% if session.get('user') %}
                     <li><a class="anchor" href="{{ url_for('logout') }}">Logout</a></li>

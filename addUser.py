@@ -1,10 +1,26 @@
 from colorBorgFlask import app, db, Users
 from security import salter, hasher
 
-"""
-unlock user
-"""
+def changeRole(username,role):
+    with app.app_context():
+        foundUser = Users.query.filter_by(name=username).first()
+        if foundUser:
+            oldRole = foundUser.role
+            foundUser.role = role
+            db.session.commit()
+            print(f"changed {username} role from: {oldRole}, to {role}")
 
+def unlockUser(username):
+    with app.app_context():
+        foundUser = Users.query.filter_by(name=username).first()
+        if foundUser:
+            print(foundUser.lockedOut, foundUser.loginAttempts)
+            foundUser.lockedOut = False
+            foundUser.loginAttempts = 0
+            db.session.commit()
+            print(f"{username} has been unlocked")
+        else:
+            print("user not found")
 
 def addUser(username,password,role, email=None,company=None,jobTitle=None):
     with app.app_context():
@@ -19,12 +35,15 @@ def addUser(username,password,role, email=None,company=None,jobTitle=None):
 
         salt, saltedPassword = salter(password)
         hash = hasher(saltedPassword)
-        # retry =  salt + pw.encode("utf-8")
+
         usr = Users(username, salt, hash, role, email, company, jobTitle)
         db.session.add(usr)
         db.session.commit()
 
         print(f"Added, {username}")
         return True
+    
 if __name__ == "__main__":
-    addUser("testUser", "1", "user", "bilboBaggingsJr@theshire.com")
+    pass
+    
+   

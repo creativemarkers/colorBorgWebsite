@@ -1,0 +1,18 @@
+{% extends "base0.html" %}
+{% block title %}{% endblock %}
+
+
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h1>500 -  Internal Server Error</h1>
+    <p>Something went wrong on our end please comeback later</p>
+
+{% endblock %}

@@ -1,14 +1,26 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
-from security import salter, hasher, saltDecoder, pwVerifier, pwStrengthChecker, usernameSanitation
+from security import salter, hasher, saltDecoder, pwVerifier, pwStrengthChecker, usernameSanitation, emailValidator
 from admin import admin
 from argon2.exceptions import VerifyMismatchError
+from extensions import limiter
+from flask_wtf import CSRFProtect
+from flask_mail import Mail, Message
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
-app.register_blueprint(admin, url_prefix="")
 
 app.config.from_object('config.Config')
+
+limiter.init_app(app=app)
+csrf = CSRFProtect(app)
+csrf.init_app(app)
+mail = Mail(app)
+
+app.register_blueprint(admin, url_prefix="")
 
 db = SQLAlchemy(app)
 
@@ -22,6 +34,7 @@ class Users(db.Model):
     company = db.Column(db.String(200),nullable=True)
     jobTitle = db.Column(db.String(200),nullable=True)
     loginAttempts = db.Column(db.Integer,nullable=False,default=0)
+    lockedOut = db.Column(db.Boolean,nullable=False,default=False)
 
     def __init__(self,name,salt,hash,role,email=None,company=None,jobTitle=None):
         self.name = name
@@ -31,12 +44,15 @@ class Users(db.Model):
         self.email = email
         self.company = company
         self.jobTitle = jobTitle
+        self.loginAttempts = 0
+        self.lockedOut = False
 
 @app.route("/")
 def home():
     return render_template("index0.html")
 
 @app.route("/login", methods=["POST","GET"])
+@limiter.limit("1/second",override_defaults=False)
 def login():
 
     if "user" in session:
@@ -46,7 +62,7 @@ def login():
     if request.method == "POST":
         
         if request.form["login"]:
-                # return render_template("login0.html")
+
             user = request.form["nm"]
             if not usernameSanitation(user):
                 flash("usernames may only include lowercase, uppercase letters,digits, _ and - ")
@@ -55,15 +71,29 @@ def login():
             foundUser = Users.query.filter_by(name=user).first()
         
             if foundUser:
+                if foundUser.lockedOut == True:
+                    flash("Account locked out, please contact the site admin.")
+                    return render_template("login0.html")
+                
                 encodedsalt = foundUser.salt
-
                 hash = foundUser.hash
+
                 try:
                     pwVerifier(hash,pw,encodedsalt)
                 except VerifyMismatchError:
                     #need to add a logging and lockout here
                     flash("You've entered the wrong password or Username! Try Again")
+                    foundUser.loginAttempts += 1
+                    db.session.commit()
+                    print(foundUser.loginAttempts)
+                    if foundUser.loginAttempts >= 4:
+                        flash("You have one more attempt before you're locked out")
+                    if foundUser.loginAttempts >= 5:
+                        foundUser.lockedOut = True
+                        db.session.commit()
                     return render_template("login0.html")
+                
+                foundUser.loginAttempts = 0
                 session.permanent = True
                 session["user"] = user
                 session["role"] = foundUser.role
@@ -76,7 +106,6 @@ def login():
                 return render_template("login0.html")
 
     return render_template("login0.html")
-
 
 @app.route("/download", methods=["POST","GET"])
 def download():
@@ -99,9 +128,9 @@ def download():
     else:
         flash("You are not logged in!")
         return redirect(url_for("login"))
-    
 
 @app.route("/userAccountCreation", methods=["POST", "GET"])
+@limiter.limit("1/second",override_defaults=False)
 def userAccountCreation():
 
     if "user" in session:
@@ -113,10 +142,13 @@ def userAccountCreation():
         username = request.form["usn"]
         if not usernameSanitation(username):
             flash("usernames may only include lowercase, uppercase letters,digits, _ and - ")
-            return render_template("login0.html")
+            return render_template("createAccount.html")
         password = request.form["pw"]
         password2 = request.form["pw2"]
         email = request.form["email"]
+        if not emailValidator(email):
+            flash("INVALID EMAIL")
+            return render_template("createAccount.html")
 
         foundUser = Users.query.filter_by(name=username).first()
 
@@ -132,15 +164,13 @@ def userAccountCreation():
             from addUser import addUser
             addUser(username,password,"user",email)
             flash("Account created Successfully")
-
             return redirect(url_for("login"))
+        
         else:
             flash("Password must be longer than 8 characters, make sure to include upper and lower case letters, a number, and at least one special charcter!")
             return render_template("createAccount.html")
 
-
     return render_template("createAccount.html")
-
 
 @app.route("/logout")
 def logout():
@@ -155,6 +185,43 @@ def logout():
         flash(f"You're not logged in")
         return redirect(url_for("login"))
     
+# def emailSendingLimit():
+#     return f"email-send-{get_remote_address()}"
+
+@app.route("/contactMe", methods=["POST","GET"])
+# @limiter.limit("2 per day", key_func=)
+def contactMe():
+
+    if request.method == "POST":
+
+        # with limiter.limit
+
+        msgContent = request.form['message']
+        msg = Message("TEST MESSAGE:", body=msgContent,
+                    recipients=['nerudasrs@gmail.com']
+        )
+
+        # try:
+        mail.send(msg)
+            # flash("Message sent")
+        # except Exception as e:
+        #     flash(e)
+
+    return render_template("contactMe.html")
+
+
+@app.errorhandler(404)
+def pageNotFound(e):
+    return render_template('404.html'),404
+
+@app.route('/trigger-error')
+def trigger_error():
+    raise Exception("This is a test exception to trigger a 500 error")
+
+@app.errorhandler(500)
+def internalServerError(e):
+    return render_template("500.html"),500
+
 def main():
     app.run(debug=True)
 

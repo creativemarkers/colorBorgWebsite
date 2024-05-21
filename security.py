@@ -5,18 +5,24 @@ from argon2 import PasswordHasher
 
 ph = PasswordHasher()
 
-def emailValidator(emailStr:str):
+def emailValidator(emailStr:str)->bool:
     hasa = False
     hasp = False
 
-    acceptableChars = set(string.ascii_lowercase + string.ascii_uppercase + string.digits + "_-@.")
+    acceptableChars = set(string.ascii_lowercase + string.ascii_uppercase + string.digits + "_-@.+")
 
-    for c in emailStr:
+    for i, c in enumerate(emailStr):
         if c not in acceptableChars:
+            return False
+        if i == 0 and c == "@":
+            return False
+        if i == 0 and c == ".":
+            return False
+        if c == "." and emailStr[i-1] in "@.":
             return False
         if hasa == True and c == "@":
             return False
-        if hasp == True and c ==".":
+        if i == len(emailStr)-1 and c == ".":
             return False
         if c == "@":
             hasa=True
@@ -25,6 +31,7 @@ def emailValidator(emailStr:str):
 
     if hasa and hasp:
         return True
+    
     return False
 
 def usernameSanitation(inputStr:str):
@@ -69,7 +76,6 @@ def pwStrengthChecker(password:str):
 
 def saltDecoder(encodedSalt):
     return base64.b64decode(encodedSalt)
-    pass
 
 def saltEncoder(decodedSalt):
     return base64.b64encode(decodedSalt).decode("utf-8")
@@ -94,33 +100,6 @@ def pwVerifier(previousHash, rawpassword, encodedSalt):
     return ph.verify(previousHash, saltedPassword)
 
 def main():
-    # # salter("caca")
-    # result = pwStrengthChecker("cacaPeePoo!1")
-    # print(result)
-    # result = pwStrengthChecker("cacaP!10")
-    # print(result)
-
-    # result = usernameSanitation("cac*^!")
-    # print(result)
-    # result = usernameSanitation("bigTittyGothGirl28")
-    # print(result)
-    # result = usernameSanitation("extremelyF_itBossom-!")
-    # print(result)
-    # result = usernameSanitation("extremelyF_itBossom-")
-    # print(result)
-
-    result = emailValidator("tittyfuck@birdfuck.com")
-    print(result)
-    result = emailValidator("tittyfuckbirdfuck.com")
-    print(result)
-    result = emailValidator("tittyfuck@birdfuckcom")
-    print(result)
-    result = emailValidator("tittyfuckir.dfuck@co.m")
-    print(result)
-    result = emailValidator("tittyfu\c---kir.dfuck@co.m")
-    print(result)
-    result = emailValidator("tittyfu_kir.dfuck@co.m")
-    print(result)
     pass
 
 if __name__ == "__main__":

@@ -462,6 +462,28 @@ footer p{
     fill: rgb(250, 249, 239)
 }
 
+form input[type=text], input[type=password]{
+    border-radius: 5px;
+    background-color: rgb(43, 43, 43);
+    color: var(--HEADER-TEXTCOLOR);
+    padding: 0.1rem;
+}
+
+form input[type=submit]{
+    border-radius: 5px;
+    background-color: rgb(43, 43, 43);
+    border-color: #F08B32;
+    color: var(--HEADER-TEXTCOLOR);
+}
+
+.loginCAButton{
+    border-radius: 5px;
+    background-color: rgb(43, 43, 43);
+    /* background-color: #F08B32; */
+    border-color: #82122C;
+    border-color: #F08B32;
+    color: var(--HEADER-TEXTCOLOR);
+}
 
 @media screen and (min-width:300px){
 

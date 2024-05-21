@@ -1,0 +1,27 @@
+{% extends "base0.html" %}
+{% block title %}{% endblock %}
+
+
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for msg in messages %}
+                <p>{{msg}}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <h1>Leave me a message</h1>
+    <br>
+    <p>To get in touch, leave feedback, or report a bug, if you're a prospective employer please leave you're desired way of being contacted.</p>
+    <form action="#" method="POST" style="text-align: center;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        <textarea id="message" name="message" id="" cols="50" rows="7" required="True"
+        style="border-radius: 5px; margin: 1rem; padding: 1rem; background-color: rgb(26, 26, 26); color: white;"></textarea>
+        <br>
+        <input type="submit" value="Submit" style="padding: 0.5rem;">
+    </form>
+
+
+{% endblock %}

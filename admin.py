@@ -1,9 +1,12 @@
 from flask import Blueprint, render_template, session, flash, redirect, url_for, request
+from extensions import limiter
+
 
 admin = Blueprint("admin",__name__, static_folder="static", template_folder="templates")
 
 @admin.route("/admin_panel/")
 @admin.route("/admin/")
+# @limiter.limit("1/minute")
 def adminPanel():
     role =  session.get("role")
     print(role)

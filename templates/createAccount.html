@@ -5,14 +5,15 @@
 <p style="text-align: center;  color: rgb(255, 76, 76);">Please dont use a common password while this site is secure, i am a novice hobbyist and can't gaurantee full security of the database storing the passwords.</p>
 <br>
 <form action="#" method="POST" style="text-align: center;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <p style="padding-top: 0.25rem;">Username:</p>
-    <p ><input type="text" name="usn"></p>
+    <p ><input type="text" name="usn" required="True"></p>
     <p style="padding-top: 0.25rem;">Password:</p>
-    <p><input type="password" name="pw"></p>
+    <p><input type="password" name="pw" required="True"></p>
     <p style="padding-top: 0.25rem;">Re Enter Password:</p>
-    <p><input type="password" name="pw2"></p>
+    <p><input type="password" name="pw2" required="True"></p>
     <p style="padding-top: 0.25rem;">Email:</p>
-    <p><input type="text" name="email"></p>
+    <p><input type="text" name="email" required="True"></p>
     <p><input style="margin:0.75rem; padding: 0.5rem;" type="submit" value="Create Account" name="create account"></p>
 </form>
 <br>

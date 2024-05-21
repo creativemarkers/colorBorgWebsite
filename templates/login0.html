@@ -13,11 +13,12 @@
     {% endwith %}
     <br>
 <form action="#" method="POST" style="text-align: center;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
     <p>Username:</p>
-    <p><input type="text" name="nm"></p>
+    <p><input type="text" name="nm" required="True"></p>
     <p>Password:</p>
-    <p><input type="password" name="pw"></p>
+    <p><input type="password" name="pw" required="True"></p>
     <p><input style="margin:0.6rem; padding: 0.5rem;" type="submit" value="Login" name = "login"></p>
 </form>
-<a href="{{ url_for('userAccountCreation')}}"><button style="margin: 0.3rem;padding: 0.5rem;">Create Account</button></a>
+<a href="{{ url_for('userAccountCreation')}}"><button class="loginCAButton" style="margin: 0.3rem;padding: 0.5rem;">Create Account</button></a>
 {% endblock %}

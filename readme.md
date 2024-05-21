@@ -4,14 +4,34 @@
     ~~still need to add a download section~~ need to provide a link for the actual bot
     add email icon at footer
 
-
-
     more security
-        email sanitation
-        account lockouts
-        rate limiting
+        ~~email sanitation~~
+        ~~account lockouts~~
+        ~~rate limiting~~
 
-    cross site request forgery
+    what do you want to log
+        rate limits being exceeded and by whom, if it's a user id like to know
+        account creations
+        account logins, account logouts
+        account lockouts
+        admin account attempts
+        errors caused 
+        when social links or contact links clicked
+
+    2. CSRF Protection
+    Cross-Site Request Forgery (CSRF) Protection:
+
+    Use Flask-WTF to include CSRF tokens in your forms. This helps ensure that form submissions are coming from trusted sources.
+    3. Secure Transmission
+    HTTPS:
+
+    Ensure your application uses HTTPS to encrypt data in transit, protecting sensitive information like email addresses from being intercepted.
+
+    4. Rate Limiting
+    Rate Limiting:
+
+    Implement rate limiting to prevent abuse and spam. This can be done using extensions like Flask-Limiter.
+
 
     fix about section
     logging
