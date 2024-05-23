@@ -3,7 +3,7 @@ from datetime import timedelta
 
 class Config:
     #will need to add the secret key to the getenv
-    SECRET_KEY = "Ce5w9nw4aAfK9XXKVpwhP4rFh5nft9bf3h4vGYLpUnwANtvADucBMpJpejdreFdXptGAbbDz4xdrAA7SSqn33NB5gkNbKBQRgU5VwLZkxqVLUPRdA2M5bMQY7vERgXFdHFAPpzwZrtzkLks99UUqqQCcDf6uh42M"
+    SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = 'sqlite:///Users.sqlite3'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     PERMANENT_SESSION_LIFETIME = timedelta(days=1)

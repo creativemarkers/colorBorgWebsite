@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
 from security import salter, hasher, saltDecoder, pwVerifier, pwStrengthChecker, usernameSanitation, emailValidator
-from admin import admin
 from argon2.exceptions import VerifyMismatchError
 from extensions import limiter
 from flask_wtf import CSRFProtect
@@ -54,6 +53,8 @@ csrf = CSRFProtect(app)
 csrf.init_app(app)
 mail = Mail(app)
 Talisman(app, content_security_policy=csp)
+
+from admin import admin
 
 app.register_blueprint(admin, url_prefix="")
 

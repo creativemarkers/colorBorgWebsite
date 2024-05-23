@@ -16,6 +16,7 @@
     {% if not value %}
 
         <form action="#" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <p>Username:</p>
             <p><input type="text" name="nm"></p>
             <input type="submit" value="delete" name="test">
@@ -27,6 +28,7 @@
         <p>USER FOUND! Confirm Below to Delete: {{value.name}}</p>
         <br>
         <form action="#" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <input style="padding: 0.5rem;" type="submit" name="test2" value="{{ value.name }}"></input>
             <input type="hidden" name="test">
         </form>
