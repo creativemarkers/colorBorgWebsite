@@ -1,23 +1,13 @@
 # to do
+    add icon to tabs
+    finish design for desktop
     make my github colorborg repo public?
     need to provide a link for the actual bot
     add email icon at footer, make it do something
 
     more security
 
-        flask talisman
-
-        1. Enable Secure Headers
-        Use Flask extensions like flask-talisman to add secure headers to your responses.
-
-        python
-        Copy code
-        from flask import Flask
-        from flask_talisman import Talisman
-
-        app = Flask(__name__)
-        Talisman(app)
-
+        ~~flask talisman~~
         ~~email sanitation~~
         ~~account lockouts~~
         ~~rate limiting~~
