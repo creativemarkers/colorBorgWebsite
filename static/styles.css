@@ -4,6 +4,11 @@
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    font-smooth: always;
+    font-display: swap;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 :root{
@@ -26,6 +31,7 @@ html{
 }
 
 body{
+    font-display: swap;
     min-height: 100vh;
     min-width: 100%;
     max-width: 100vw;
@@ -42,6 +48,7 @@ body{
         #82122C
     );
     background-size: 250%;
+
 }
 
 header{
@@ -291,6 +298,7 @@ main{
     color: var(--HEADER-TEXTCOLOR);
     font-size: 1em;
     height: auto;
+    /* border-radius: 4px; */
 }
 
 .heroButton{
@@ -314,6 +322,7 @@ main{
     margin-right: 2rem;
     /* background-color: dodgerblue; */
     background-color: #3e4dd4;
+    /* border-radius: 3px; */
     color: var(--HEADER-TEXTCOLOR);
     font-weight: 500;
     font-size: .8rem;
@@ -578,4 +587,58 @@ footer p{
 
 @media screen and (min-width:576px){
 
+}
+
+@media screen and (min-width:768px){
+    .landingcontent{
+        padding-top: 0;
+        padding-right: 7rem;
+        top: -25px;
+    }
+
+    .landingmainh1{
+        /* background-color: transparent; */
+    }
+
+    .landingcontent h1{
+        color: var(--HEADER-BGCOLOR);
+        color: var(--HEADER-TEXTCOLOR);
+        font-size: 15rem;
+        line-height: 15rem;
+        padding-right: 3rem;
+        font-weight: 400;
+        font-optical-sizing: auto;
+        font-style: normal;
+        transform: scale(1);
+        will-change: transform;
+        backface-visibility: hidden;
+        perspective: 1000;
+
+    }
+
+    .underH1text{
+        padding-top: .25rem;
+        /* padding-bottom: .25rem; */
+        padding-right: 3rem;
+    }
+
+    .introparagraph{
+        margin-top:1.5rem;
+        padding-top: 0.8rem;
+        padding-bottom: 0.8rem;
+        padding-left: 0;
+        padding-right: 1rem;
+        font-size: 1.15rem;
+    }
+
+    .heroButton{
+
+        
+        margin-right: 2rem;
+        margin-top: 1.6rem;
+    }
+
+    .heroButton button{
+        font-size: .85rem;
+    }
 }
